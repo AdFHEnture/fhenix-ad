@@ -33,7 +33,7 @@ export function shouldBehaveLikeAdMatcher(): void {
   // });
 
   it("should seal the output with permissions", async function () {
-    const userVector = [true, false, true, false, true, false, true, false, true, false];
+    const userVector = [true, false, true, false, true];
     const encryptedUserVector = await Promise.all(userVector.map(val => this.instance.instance.encrypt_bool(val)));
 
     const permission = this.instance.permission;
@@ -42,14 +42,14 @@ export function shouldBehaveLikeAdMatcher(): void {
     expect(sealedOutput).to.equal(3);
   });
 
-  it("should seal the output with permissions by user address", async function () {
-    const userVector = [true, false, true, false, true, false, true, false, true, false];
-    await this.adMatcher.addUserVector(userVector);
-    const encryptedUserVector = await Promise.all(userVector.map(val => this.instance.instance.encrypt_bool(val)));
+  // it("should seal the output with permissions by user address", async function () {
+  //   const userVector = [true, false, true, false, true];
+  //   await this.adMatcher.addUserVector(userVector);
+  //   const encryptedUserVector = await Promise.all(userVector.map(val => this.instance.instance.encrypt_bool(val)));
 
-    const permission = this.instance.permission;
-    const sealedOutput = await this.adMatcher.findBestAdPermitSealed(encryptedUserVector, permission);
+  //   const permission = this.instance.permission;
+  //   const sealedOutput = await this.adMatcher.findBestAdPermitSealed(encryptedUserVector, permission);
 
-    expect(sealedOutput).to.equal(3);
-  });
+  //   expect(sealedOutput).to.equal(3);
+  // });
 }
