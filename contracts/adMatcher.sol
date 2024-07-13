@@ -40,7 +40,16 @@ contract AdMatcher is Permissioned {
         bytes32 _sender,
         bytes calldata _data
     ) external payable virtual {
-        revert("Not implemented");
+        bool[] memory adBytesArray = new bool[](_data.length);
+        for (uint i = 0; i < _data.length; i++) {
+            if (_data[i] == 0x00) {
+                adBytesArray[i] = false;
+            } else {
+                adBytesArray[i] = true;
+            }
+        }
+
+        adMatrix.push(adBytesArray);
     }
 
     function findBestAdFromSenderAddress(Permission memory permission) public view onlySender(permission) returns (uint256) {
