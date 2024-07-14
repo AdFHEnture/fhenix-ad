@@ -13,15 +13,6 @@ contract AdMatcher is Permissioned {
 
   constructor() {
     owner = msg.sender;
-
-    adMatrix.push([true, false, false, false, false]);
-    adMatrix.push([false, false, false, false, false]);
-    adMatrix.push([false, false, false, false, false]);
-    adMatrix.push([true, true, true, true, true]);
-    adMatrix.push([false, false, false, false, false]);
-    adMatrix.push([false, false, true, false, true]);
-    adMatrix.push([true, false, true, false, true]);
-    adMatrix.push([true, false, false, false, true]);
   }
 
   function addUserVector(bool[] calldata userVector) public {
@@ -186,5 +177,9 @@ contract AdMatcher is Permissioned {
       userVector[i] = FHE.decrypt(encryptedUserVector[i]);
     }
     return userVector;
+  }
+
+  function getAdsCount() public view returns (uint256) {
+    return adMatrix.length;
   }
 }
